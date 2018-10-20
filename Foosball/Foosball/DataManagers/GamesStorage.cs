@@ -1,21 +1,46 @@
-﻿using System;
+﻿using Foosball.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Foosball.DataModels;
 
 namespace Foosball.DataManagers
 {
     public class GamesStorage : IGamesStorage
     {
+        private readonly Foosball.DbModels.FoosballContext context;
+        public GamesStorage(Foosball.DbModels.FoosballContext context)
+        {
+            this.context = context;
+        }
+
         public string CreateGame(string teamA, string teamB)
         {
-            throw new NotImplementedException();
+            var guid = new Guid();
+            var set = new DbModels.Set() { Number = 1 };
+            context.Games.Add(new DbModels.Game()
+            {
+                TeamA = teamA,
+                TeamB = teamB,
+                StartTime = DateTime.Now,
+                GameId = guid,
+                Sets = new List<DbModels.Set>() { set }
+            });
+            context.SaveChanges();
+            return guid.ToString();
         }
 
         public IEnumerable<Game> GetGames()
         {
-            throw new NotImplementedException();
+            var games = context.Games.Select(g => new Game()
+            {
+                GameId = g.GameId.ToString(),
+                StartTime = g.StartTime,
+                TeamA = g.TeamA,
+                TeamB = g.TeamB,
+                Winner = g.Winner
+            }).ToList();
+            return games;
         }
 
         public IEnumerable<Goal> GetGoals(string gameId)

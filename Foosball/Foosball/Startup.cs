@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Foosball.DbModels;
 
 namespace Foosball
 {
@@ -25,7 +27,10 @@ namespace Foosball
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IGamesStorage, GamesStorage>();
+            var connection = @"Server=localhost\SQLExpress;Database=CyberVadisFoosball;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<FoosballContext>
+                (options => options.UseSqlServer(connection));
+            services.AddTransient<IGamesStorage, GamesStorage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
