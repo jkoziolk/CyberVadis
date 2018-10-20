@@ -20,7 +20,7 @@ namespace Foosball.DbModels
     public class Game
     {
         public int Id { get; set; }
-        public Guid GameId { get; set; }
+        public string GameId { get; set; }
         public string TeamA { get; set; }
         public string TeamB { get; set; }
         public string Winner { get; set; }

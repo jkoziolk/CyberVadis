@@ -23,7 +23,7 @@ namespace Foosball.DataManagers
                 TeamA = teamA,
                 TeamB = teamB,
                 StartTime = DateTime.Now,
-                GameId = guid,
+                GameId = guid.ToString(),
                 Sets = new List<DbModels.Set>() { set }
             });
             context.SaveChanges();

@@ -23,17 +23,16 @@ namespace Foosball
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //connection string should be moved to the configuration file in the next step.
             var connection = @"Server=localhost\SQLExpress;Database=CyberVadisFoosball;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<FoosballContext>
                 (options => options.UseSqlServer(connection));
             services.AddTransient<IGamesStorage, GamesStorage>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
