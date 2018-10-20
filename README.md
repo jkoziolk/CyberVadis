@@ -28,3 +28,18 @@
 * Use common sense if something wasn't specified
 * Try to deliver a working solution
 * Keep your code on GitHub
+
+# Steps which are done
+* Basic architecture creation
+* Controller implementation
+* Basic controller tests
+* Database model creaton
+* Fisrt two methods of with database communication are implementes
+* Entity framework is added to the project
+* Sturtups.cs is configured - services are connected
+
+# Steps which should be done to finish everything
+* Finish implementation of database connection part
+* Add finial migration (solve problems with migration)
+* Move connection string to configuration
+* Add tests for database part
